@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Empresa</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Barra superior -->
+  <div class="top-bar">
+    <div class="top-links">
+      <a href="index.html">Index</a>
+      <a href="faq.html">Preguntas Frecuentes</a>
+      <a href="contacto.html">Contáctenos</a>
+      <a href="conocenos.html">Conócenos</a>
+    </div>
+    <div id="fecha-actual"></div>
+  </div>
+
+  <!-- Banner con logo -->
+  <div class="banner">
+    <img src="images\logo.png" alt="Logo de la Empresa">
+  </div>
+
+  <!-- Navegación secundaria -->
+  <div class="nav-area">
+    <div class="nav-links">
+      <a href="#">Carrito de Compras</a>
+      <a href="login.html">Iniciar Sesión / Registro</a>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Buscar...">
+    </div>
+  </div>
+
+  <!-- Sección: Inicio / Registro -->
+  <section>
+    <h2>Iniciar Sesión</h2>
+    <form>
+      <input type="email" placeholder="Correo electrónico" required>
+      <input type="password" placeholder="Contraseña" required>
+      <button type="submit">Iniciar Sesión</button>
+    </form>
+
+    <h2 style="margin-top: 40px;">Registrarse</h2>
+    <form>
+      <input type="text" placeholder="Nombre completo" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <input type="password" placeholder="Contraseña" required>
+      <button type="submit">Registrarse</button>
+    </form>
+  </section>
+
+  <script src="js/scripts.js"></script>
+</body>
+</html>
