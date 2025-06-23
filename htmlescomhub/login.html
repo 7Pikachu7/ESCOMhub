@@ -9,12 +9,15 @@
   <!-- Barra superior -->
   <div class="top-bar">
     <div class="top-links">
-      <a href="index.html">Index</a>
-      <a href="faq.html">Preguntas Frecuentes</a>
-      <a href="contacto.html">Contáctenos</a>
-      <a href="conocenos.html">Conócenos</a>
+      <a href="index.html"><span class="icon">🏠</span>Inicio</a>
+      <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
+      <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+      <a href="conocenos.html"><span class="icon">ℹ️</span>Conócenos</a>
     </div>
-    <div id="fecha-actual"></div>
+    <div class="top-bar-right">
+      <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
+      <div id="fecha-actual"></div>
+    </div>
   </div>
 
   <!-- Banner con logo -->
@@ -36,21 +39,35 @@
   <!-- Sección: Inicio / Registro -->
   <section>
     <h2>Iniciar Sesión</h2>
-    <form>
-      <input type="email" placeholder="Correo electrónico" required>
-      <input type="password" placeholder="Contraseña" required>
+    <form id="login-form">
+      <div>
+        <input type="email" placeholder="Correo electrónico" required>
+      </div>
+      <div>
+        <input type="password" placeholder="Contraseña" required>
+      </div>
       <button type="submit">Iniciar Sesión</button>
     </form>
 
     <h2 style="margin-top: 40px;">Registrarse</h2>
-    <form>
-      <input type="text" placeholder="Nombre completo" required>
-      <input type="email" placeholder="Correo electrónico" required>
-      <input type="password" placeholder="Contraseña" required>
+    <form id="register-form" class="form-registro">
+      <div>
+        <input type="text" placeholder="Nombre completo" required>
+        <span class="error-message">Campo obligatorio</span>
+      </div>
+      <div>
+        <input type="email" placeholder="Correo electrónico" required>
+        <span class="error-message">Campo obligatorio</span>
+      </div>
+      <div>
+        <input type="password" placeholder="Contraseña" required minlength="8">
+        <span class="error-message">Campo obligatorio</span>
+      </div>
       <button type="submit">Registrarse</button>
     </form>
   </section>
 
   <script src="js/scripts.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>

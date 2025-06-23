@@ -9,12 +9,15 @@
   <!-- Barra superior -->
   <div class="top-bar">
     <div class="top-links">
-      <a href="index.html">Index</a>
-      <a href="faq.html">Preguntas Frecuentes</a>
-      <a href="contacto.html">Contáctenos</a>
-      <a href="conocenos.html">Conócenos</a>
+      <a href="index.html"><span class="icon">🏠</span>Inicio</a>
+      <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
+      <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+      <a href="conocenos.html"><span class="icon">ℹ️</span>Conócenos</a>
     </div>
-    <div id="fecha-actual"></div>
+    <div class="top-bar-right">
+      <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
+      <div id="fecha-actual"></div>
+    </div>
   </div>
 
   <!-- Banner con logo -->
@@ -45,5 +48,6 @@
   </section>
 
   <script src="js/scripts.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>

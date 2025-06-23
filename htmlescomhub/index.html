@@ -9,12 +9,15 @@
   <!-- Barra superior -->
   <div class="top-bar">
     <div class="top-links">
-      <a href="index.html">Index</a>
-      <a href="faq.html">Preguntas Frecuentes</a>
-      <a href="contacto.html">Contáctenos</a>
-      <a href="conocenos.html">Conócenos</a>
+      <a href="index.html"><span class="icon">🏠</span>Inicio</a>
+      <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
+      <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+      <a href="conocenos.html"><span class="icon">ℹ️</span>Conócenos</a>
     </div>
-    <div id="fecha-actual"></div>
+    <div class="top-bar-right">
+      <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
+      <div id="fecha-actual"></div>
+    </div>
   </div>
 
   <!-- Banner con logo -->
@@ -36,21 +39,43 @@
   <!-- Slider de promociones -->
   <div class="slider-container">
     <div class="slider">
-      <img src="images\promo1.png" alt="Promo 1">
-      <img src="images\promo2.png" alt="Promo 2">
-      <img src="images\promo3.png" alt="Promo 3">
-      <img src="images\promo4.png" alt="Promo 4">
-      <img src="images\promo1.png" alt="Promo 1 duplicado">
-      <img src="images\promo2.png" alt="Promo 2 duplicado">
+      <img src="images/Sol_adobada.png" alt="Papas sol adobadas">
+      <img src="images/Sol_chipotle.png" alt="Papas sol chipotle">
+      <img src="images/Sol_extrema.png" alt="Papas sol extrema">
+      <img src="images/Sol_habanero.png" alt="Papas sol habanero">
+      <img src="images/Sol_jalapeño.png" alt="Papas sol jalapeño">
+      <img src="images/Sol_limon.png" alt="Papas sol limon">
+      <img src="images/Sol_original.png" alt="Papas sol original">
+      <img src="images/Solchesitos.png" alt="Solchesitos">
+      <img src="images/Solchesitos_extremos.png" alt="Solchesitos_adobados">
+      <img src="images/Galleta.png" alt="Galleta">
+      <img src="images/Pizza.png" alt="Pizza">
+      <img src="images/muffin.png" alt="muffin">
+      <!-- Imágenes duplicadas para el bucle infinito -->
+      <img src="images/Sol_adobada.png" alt="Papas sol adobadas">
+      <img src="images/Sol_chipotle.png" alt="Papas sol chipotle">
+      <img src="images/Sol_extrema.png" alt="Papas sol extrema">
+      <img src="images/Sol_habanero.png" alt="Papas sol habanero">
+      <img src="images/Sol_jalapeño.png" alt="Papas sol jalapeño">
+      <img src="images/Sol_limon.png" alt="Papas sol limon">
+      <img src="images/Sol_original.png" alt="Papas sol original">
+      <img src="images/Solchesitos.png" alt="Solchesitos">
+      <img src="images/Solchesitos_extremos.png" alt="Solchesitos_adobados">
+      <img src="images/Galleta.png" alt="Galleta">
+      <img src="images/Pizza.png" alt="Pizza">
+      <img src="images/muffin.png" alt="muffin">
     </div>
   </div>
 
   <!-- Contenido específico de la página principal -->
   <section>
-    <h2>Bienvenido a nuestra tienda</h2>
-    <p>Aquí puedes encontrar los mejores productos y ofertas.</p>
+    <h2>¡Descubre un mundo de sabores!</h2>
+    <p>Desde las clásicas Papas Sol hasta los crujientes Solchesitos y dulces tentaciones como galletas y muffins. Tenemos el snack perfecto para cada momento.</p>
+    <p>Explora nuestra variedad y encuentra tus favoritos. ¡Calidad y sabor que te encantarán!</p>
+    <a href="#" class="cta-button">Ver todos los productos</a>
   </section>
 
   <script src="js/scripts.js"></script>
+  <script src="js/theme.js"></script>
 </body>
 </html>
