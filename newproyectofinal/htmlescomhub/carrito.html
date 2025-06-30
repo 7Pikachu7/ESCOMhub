@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carrito de Compras</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+    .top-bar {
+      background: #333;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    .top-links a {
+      color: #fff;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+    .top-links a:hover {
+      text-decoration: underline;
+    }
+    .cart-container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding: 10px 0;
+      flex-wrap: wrap;
+    }
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      margin-right: 15px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    .cart-item-details {
+      flex: 1;
+      min-width: 200px;
+    }
+    .cart-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 250px;
+    }
+    .cart-summary {
+      text-align: right;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .checkout-button {
+      padding: 12px 20px;
+      background: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .checkout-button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra superior -->
+  <div class="top-bar">
+    <div class="top-links">
+      <a href="index.html"><span class="icon">🏠</span>Inicio</a>
+      <a href="nuevo_producto.html"><span class="icon">➕</span>Registrar Producto</a>
+      <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
+      <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+    </div>
+    <div class="top-bar-right">
+      <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <main class="cart-container">
+    <h2>🛒 Tu carrito con productos</h2>
+    <div id="cart-items"></div>
+    <div class="cart-summary">
+      <label>
+        Correo destinatario:
+        <input type="email" id="email-destino" placeholder="usuario@dominio.com" style="margin-left:10px; padding:4px;">
+      </label>
+      <br><br>
+      Total: <span id="cart-total">$0.00</span>
+      <button class="checkout-button">Proceder al Pago</button>
+    </div>
+  </main>
+
+  <script>
+    const defaultProducts = [
+      { id: 1, name: "Papas Sol Original", price: 20.00, image: "images/Sol_original.png" },
+      { id: 2, name: "Papas Sol Adobada", price: 22.00, image: "images/Sol_adobada.png" },
+      { id: 3, name: "Papas Sol Chipotle", price: 22.00, image: "images/Sol_chipotle.png" },
+      { id: 4, name: "Papas Sol Habanero", price: 23.00, image: "images/Sol_habanero.png" },
+      { id: 5, name: "Papas Sol Jalapeño", price: 23.00, image: "images/Sol_jalapeño.png" },
+      { id: 6, name: "Papas Sol Limón", price: 21.00, image: "images/Sol_limon.png" },
+      { id: 7, name: "Solchesitos", price: 19.00, image: "images/Solchesitos.png" },
+      { id: 8, name: "Galleta", price: 15.00, image: "images/Galleta.png" },
+      { id: 9, name: "Muffin", price: 18.00, image: "images/muffin.png" },
+      { id: 10, name: "Pizza", price: 30.00, image: "images/Pizza.png" }
+    ];
+
+    const localProductsRaw = JSON.parse(localStorage.getItem("productos") || "[]");
+    const localProducts = localProductsRaw.map(p => ({
+      id: p.id,
+      name: p.nombre,
+      price: p.precio,
+      image: p.imagen || "images/default.png"
+    }));
+
+    const productsMap = new Map();
+    defaultProducts.forEach(p => productsMap.set(p.id, p));
+    localProducts.forEach(p => productsMap.set(p.id, p));
+    const products = Array.from(productsMap.values());
+
+    const cartItemsContainer = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+
+    products.forEach(product => {
+      const div = document.createElement("div");
+      div.className = "cart-item";
+      div.innerHTML = `
+        <input type="checkbox" class="product-checkbox" data-id="${product.id}" data-price="${product.price}">
+        <img src="${product.image}" alt="${product.name}">
+        <div class="cart-item-details">
+          <strong>${product.name}</strong><br>
+          Precio unitario: $${product.price.toFixed(2)}
+        </div>
+        <div class="cart-item-actions">
+          Cantidad: <input type="number" min="1" value="1" class="quantity-input" data-id="${product.id}" disabled>
+          Subtotal: <span class="subtotal" data-id="${product.id}">$0.00</span>
+        </div>
+      `;
+      cartItemsContainer.appendChild(div);
+    });
+
+    cartItemsContainer.addEventListener("change", e => {
+      if (e.target.classList.contains("product-checkbox")) {
+        const id = e.target.getAttribute("data-id");
+        const qtyInput = cartItemsContainer.querySelector(`.quantity-input[data-id="${id}"]`);
+        qtyInput.disabled = !e.target.checked;
+        if (!e.target.checked) {
+          qtyInput.value = 1;
+        }
+        updateTotals();
+      }
+    });
+
+    cartItemsContainer.addEventListener("input", e => {
+      if (e.target.classList.contains("quantity-input")) {
+        updateTotals();
+      }
+    });
+
+    function updateTotals() {
+      let total = 0;
+      products.forEach(product => {
+        const checkbox = cartItemsContainer.querySelector(`.product-checkbox[data-id="${product.id}"]`);
+        const qtyInput = cartItemsContainer.querySelector(`.quantity-input[data-id="${product.id}"]`);
+        const subtotalSpan = cartItemsContainer.querySelector(`.subtotal[data-id="${product.id}"]`);
+        if (checkbox.checked) {
+          const qty = parseInt(qtyInput.value) || 1;
+          const subtotal = product.price * qty;
+          subtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+          total += subtotal;
+        } else {
+          subtotalSpan.textContent = `$0.00`;
+        }
+      });
+      cartTotal.textContent = `$${total.toFixed(2)}`;
+    }
+
+    updateTotals();
+
+    document.querySelector(".checkout-button").addEventListener("click", () => {
+      const seleccionados = [];
+      let total = 0;
+      products.forEach(product => {
+        const checkbox = cartItemsContainer.querySelector(`.product-checkbox[data-id="${product.id}"]`);
+        const qtyInput = cartItemsContainer.querySelector(`.quantity-input[data-id="${product.id}"]`);
+        if (checkbox.checked) {
+          const cantidad = parseInt(qtyInput.value) || 1;
+          const subtotal = cantidad * product.price;
+          seleccionados.push(`${cantidad} x ${product.name} = $${subtotal.toFixed(2)}`);
+          total += subtotal;
+        }
+      });
+
+      if (seleccionados.length === 0) {
+        alert("Por favor selecciona al menos un producto.");
+        return;
+      }
+
+      const destinatarioInput = document.getElementById("email-destino");
+      const destinatario = destinatarioInput.value.trim();
+      if (!destinatario) {
+        alert("Por favor ingresa un correo destinatario.");
+        return;
+      }
+
+      const resumen = seleccionados.join("\n") + `\n\nTotal: $${total.toFixed(2)}`;
+      const asunto = "Nueva compra con PDF adjunto";
+
+      <!--fetch("http://localhost:8080/api/email/send-with-static-pdf", {-->
+        fetch("https://correo-springboot-production.up.railway.app/api/email/send-with-static-pdf", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  body: new URLSearchParams({
+    to: destinatario,
+    subject: asunto,
+    body: resumen
+  })
+})
+
+
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Error al enviar el correo.");
+        }
+        return response.text();
+      })
+      .then(data => {
+        alert("¡Compra realizada y correo con PDF enviado!\n\n" + resumen);
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Ocurrió un error al enviar el correo.");
+      });
+    });
+  </script>
+</body>
+</html>
