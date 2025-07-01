@@ -2,113 +2,57 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Carrito de Compras</title>
+  <title>Nuestros productos</title>
   <link rel="stylesheet" href="css/styles.css" />
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      padding: 0;
-    }
-    .top-bar {
-      background: #333;
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 20px;
-    }
-    .top-links a {
-      color: #fff;
-      margin-right: 15px;
-      text-decoration: none;
-    }
-    .top-links a:hover {
-      text-decoration: underline;
-    }
-    .cart-container {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin-top: 20px;
-    }
-    .cart-item {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-      flex-wrap: wrap;
-    }
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      margin-right: 15px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .cart-item-details {
-      flex: 1;
-      min-width: 200px;
-    }
-    .cart-item-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 250px;
-    }
-    .cart-summary {
-      text-align: right;
-      margin-top: 20px;
-      font-weight: bold;
-    }
-    .checkout-button {
-      padding: 12px 20px;
-      background: #28a745;
-      color: white;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .checkout-button:hover {
-      background: #218838;
-    }
-  </style>
 </head>
 <body>
-  <!-- Barra superior -->
+  <!-- Barra superior (reutilizada de index.html) -->
   <div class="top-bar">
     <div class="top-links">
       <a href="index.html"><span class="icon">🏠</span>Inicio</a>
-      <a href="nuevo_producto.html"><span class="icon">➕</span>Registrar Producto</a>
       <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
       <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+      <a href="conocenos.html"><span class="icon">ℹ️</span>Conócenos</a>
     </div>
     <div class="top-bar-right">
       <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
+      <div id="fecha-actual"></div>
     </div>
   </div>
 
-  <!-- Contenido principal -->
-  <main class="cart-container">
-    <h2>🛒 Tu carrito con productos</h2>
+  <!-- Banner con logo (reutilizado de index.html) -->
+  <div class="banner">
+    <img src="images/logo.png" alt="Logo de la Empresa">
+  </div>
+  <!-- Navegación secundaria (reutilizada de index.html) -->
+  <div class="nav-area">
+    <div class="nav-links">
+      <a href="carrito.html">Nuestros productos</a>
+      <a href="nuevo_producto.html">Registrar Producto</a>
+      <a href="login.html">Iniciar Sesión / Registro</a>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Buscar productos...">
+    </div>
+  </div>
+
+  <!-- Contenido principal: Carrito -->
+  <main class="product-catalog">
+    <h2>🛒 Selecciona tus productos</h2>
     <div id="cart-items"></div>
     <div class="cart-summary">
       <label>
         Correo destinatario:
-        <input type="email" id="email-destino" placeholder="usuario@dominio.com" style="margin-left:10px; padding:4px;">
+        <input type="email" id="email-destino" placeholder="usuario@dominio.com">
       </label>
       <br><br>
       Total: <span id="cart-total">$0.00</span>
       <button class="checkout-button">Proceder al Pago</button>
     </div>
   </main>
+
+  <script src="js/scripts.js"></script>
+  <script src="js/theme.js"></script>
 
   <script>
     const defaultProducts = [
@@ -254,5 +198,6 @@
       });
     });
   </script>
+
 </body>
 </html>

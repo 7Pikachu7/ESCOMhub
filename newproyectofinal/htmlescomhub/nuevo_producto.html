@@ -4,117 +4,54 @@
   <meta charset="UTF-8">
   <title>Registrar Nuevo Producto</title>
   <link rel="stylesheet" href="css/styles.css">
-  <style>
-    body {
-      background-color: #848484;
-    }
-    .form-container {
-      max-width: 600px;
-      margin: 40px auto;
-      padding: 20px;
-      border: 1px solid #146fb4;
-      border-radius: 8px;
-      background-color: #3f5fff;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .form-container h2 {
-      text-align: center;
-      color: #fff;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .form-group label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: #fff;
-    }
-    .form-group input[type="text"],
-    .form-group input[type="number"],
-    .form-group textarea {
-      width: 100%;
-      padding: 8px;
-      box-sizing: border-box;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .form-group input[type="file"] {
-      margin-top: 5px;
-    }
-    .image-preview {
-      margin-top: 10px;
-      max-height: 200px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-    }
-    .submit-button,
-    .delete-page-button {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-      font-size: 16px;
-      margin-top: 10px;
-      text-align: center;
-      text-decoration: none;
-    }
-    .submit-button {
-      background: #2cf321;
-      color: white;
-    }
-    .submit-button:hover {
-      background: #13981e;
-    }
-    .delete-page-button {
-      background: #dc3545;
-      color: white;
-    }
-    .delete-page-button:hover {
-      background: #c82333;
-    }
-  </style>
 </head>
 <body>
-  <!-- Barra superior -->
+  <!-- Barra superior (reutilizada de index.html) -->
   <div class="top-bar">
     <div class="top-links">
       <a href="index.html"><span class="icon">🏠</span>Inicio</a>
-      <a href="carrito.html"><span class="icon">🛒</span>Carrito</a>
+      <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
+      <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+      <a href="conocenos.html"><span class="icon">ℹ️</span>Conócenos</a>
     </div>
     <div class="top-bar-right">
       <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
+      <div id="fecha-actual"></div>
     </div>
   </div>
 
-  <div class="form-container">
-    <h2>Registrar Nuevo Producto</h2>
-    <form id="product-form">
-      <div class="form-group">
-        <label for="product-name">Nombre del Producto</label>
-        <input type="text" id="product-name" required>
-      </div>
-      <div class="form-group">
-        <label for="product-price">Precio (MXN)</label>
-        <input type="number" id="product-price" step="0.01" min="0" required>
-      </div>
-      <div class="form-group">
-        <label for="product-image">Imagen (opcional)</label>
-        <input type="file" id="product-image" accept="image/*">
-        <img id="image-preview" class="image-preview" src="" alt="" style="display:none;">
-      </div>
-      <div class="form-group">
-        <label for="product-base64">Imagen en Base64 (opcional, si no subes un archivo)</label>
-        <textarea id="product-base64" rows="3" placeholder="Pega aquí el string en Base64"></textarea>
-      </div>
-      <button type="submit" class="submit-button">Guardar Producto</button>
-    </form>
-    <a href="eliminar_productos.html" class="delete-page-button">🗑️ Ir a Eliminar Productos</a>
+  <!-- Banner con logo (reutilizado de index.html) -->
+  <div class="banner">
+    <img src="images/logo.png" alt="Logo de la Empresa">
+  </div>
+  <!-- Navegación secundaria (reutilizada de index.html) -->
+  <div class="nav-area">
+    <div class="nav-links">
+      <a href="carrito.html">Nuestros productos</a>
+      <a href="nuevo_producto.html">Registrar Producto</a>
+      <a href="login.html">Iniciar Sesión / Registro</a>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Buscar productos...">
+    </div>
   </div>
 
+  <main class="product-catalog">
+    <section>
+      <h2>➕ Registrar Nuevo Producto</h2>
+      <form id="product-form">
+        <input type="text" id="product-name" placeholder="Nombre del Producto" required>
+        <input type="number" id="product-price" step="0.01" min="0" placeholder="Precio (MXN)" required>
+        <textarea id="product-base64" rows="3" placeholder="Pega aquí el string en Base64 (opcional)"></textarea>
+        <input type="file" id="product-image" accept="image/*" title="O sube un archivo de imagen">
+        <img id="image-preview" class="image-preview" src="" alt="Vista previa de la imagen" style="display:none;">
+        <button type="submit" class="button button-success">Guardar Producto</button>
+      </form>
+      <a href="eliminar_productos.html" class="button button-danger" style="width: 50%; box-sizing: border-box;">🗑️ Administrar Productos</a>
+    </section>
+  </main>
+
+  <script src="js/scripts.js"></script>
   <script src="js/theme.js"></script>
   <script>
     const imageInput = document.getElementById("product-image");

@@ -28,7 +28,7 @@
   <!-- Navegación secundaria -->
   <div class="nav-area">
     <div class="nav-links">
-      <a href="carrito.html">Carrito de Compras</a>
+      <a href="carrito.html">Nuestros productos</a>
       <a href="nuevo_producto.html">Registrar Producto</a>
       <a href="login.html">Iniciar Sesión / Registro</a>
     </div>
@@ -70,5 +70,64 @@
 
   <script src="js/scripts.js"></script>
   <script src="js/theme.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('login-form');
+      const registerForm = document.getElementById('register-form');
+
+      // --- Lógica de Registro ---
+      registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nameInput = registerForm.querySelector('input[type="text"]');
+        const emailInput = registerForm.querySelector('input[type="email"]');
+        const passwordInput = registerForm.querySelector('input[type="password"]');
+
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+        // Verificar si el correo ya existe
+        const userExists = users.some(user => user.email === emailInput.value);
+        if (userExists) {
+          alert('El correo electrónico ya está registrado. Por favor, utiliza otro.');
+          return;
+        }
+
+        // Crear nuevo usuario
+        const newUser = {
+          id: Date.now(),
+          name: nameInput.value,
+          email: emailInput.value,
+          password: passwordInput.value // ¡ADVERTENCIA: En un proyecto real, la contraseña debe ser encriptada (hashed)!
+        };
+
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+
+        alert('¡Registro exitoso! Ahora puedes iniciar sesión.');
+        registerForm.reset();
+      });
+
+      // --- Lógica de Inicio de Sesión ---
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const emailInput = loginForm.querySelector('input[type="email"]');
+        const passwordInput = loginForm.querySelector('input[type="password"]');
+
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+        const foundUser = users.find(user => user.email === emailInput.value && user.password === passwordInput.value);
+
+        if (foundUser) {
+          alert(`¡Bienvenido, ${foundUser.name}!`);
+          // Guardar el usuario actual en sessionStorage para mantener la sesión activa
+          sessionStorage.setItem('currentUser', JSON.stringify(foundUser));
+          window.location.href = 'index.html'; // Redirigir a la página principal
+        } else {
+          alert('Correo o contraseña incorrectos.');
+        }
+      });
+    });
+  </script>
 </body>
 </html>

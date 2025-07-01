@@ -23,8 +23,10 @@
   --accent-text-color: #ffffff;
 
   --danger-color: #dc3545;
+  --danger-darker-color: #c82333;
   --danger-shadow-color: rgba(220, 53, 69, 0.25);
   --success-color: #28a745;
+  --success-darker-color: #218838;
   --success-shadow-color: rgba(40, 167, 69, 0.25);
 
   --banner-bg-gradient: linear-gradient(to right, #007BFF, #0056b3);
@@ -420,8 +422,10 @@ form button:focus {
   /* --accent-text-color: #ffffff; */
 
   --danger-color: #e74c3c; /* Rojo ligeramente más brillante */
+  --danger-darker-color: #c0392b;
   --danger-shadow-color: rgba(231, 76, 60, 0.25);
   --success-color: #2ecc71; /* Verde ligeramente más brillante */
+  --success-darker-color: #27ae60;
   --success-shadow-color: rgba(46, 204, 113, 0.25);
 
   --banner-bg-gradient: linear-gradient(to right, #2980b9, #1f638f); /* Gradiente oscuro */
@@ -431,4 +435,308 @@ form button:focus {
   --section-border-opacity: 0.7;
 
   --placeholder-color: #7f8c8d;
+}
+
+
+/* --- Estilos para la Página de Productos --- */
+
+.product-catalog {
+  max-width: 1400px; /* Ancho mayor para acomodar 5 columnas */
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.product-catalog h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--subtle-border-color);
+  padding-bottom: 15px;
+}
+
+.product-grid {
+  display: grid;
+  /* Por defecto, 5 columnas para escritorio. 1fr significa que cada columna toma una fracción igual del espacio. */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 25px; /* Espacio entre las tarjetas */
+}
+
+.product-card {
+  background-color: var(--surface-color);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+  overflow: hidden; /* Para que la imagen no se salga de los bordes redondeados */
+  display: flex;
+  flex-direction: column; /* Organiza el contenido de la tarjeta en una columna */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+
+.product-card:hover {
+  transform: translateY(-8px); /* Efecto de elevación al pasar el cursor */
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px; /* Altura fija para todas las imágenes */
+  object-fit: cover; /* Asegura que la imagen cubra el área sin distorsionarse */
+  background-color: var(--subtle-bg-color); /* Color de fondo por si la imagen no carga */
+}
+
+.product-info {
+  padding: 15px;
+  flex-grow: 1; /* Hace que esta sección crezca para empujar el footer hacia abajo */
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-size: 1.1em;
+  color: var(--text-color);
+  margin: 0 0 10px 0;
+}
+
+.product-details {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0.9em;
+  color: var(--text-secondary-color);
+}
+
+.product-details li {
+  margin-bottom: 5px;
+}
+
+.product-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  border-top: 1px solid var(--border-color);
+  margin-top: auto; /* Empuja el footer al final de la tarjeta */
+}
+
+.product-price {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.add-to-cart-btn {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  background-color: var(--accent-darker-color);
+  transform: scale(1.05);
+}
+
+/* --- Media Queries para Responsividad --- */
+
+/* Para tablets y pantallas más pequeñas (menos de 1200px) */
+@media (max-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+  }
+}
+
+/* Para tablets en modo vertical y móviles grandes (menos de 768px) */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+  }
+}
+
+/* Para móviles (menos de 480px) */
+@media (max-width: 480px) {
+  .product-grid {
+    grid-template-columns: 1fr; /* 1 columna */
+  }
+}
+
+/* --- Estilos para la página del Carrito --- */
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 5px; /* Ajuste de padding */
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cart-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong-color);
+}
+
+.cart-item-details {
+  flex: 1;
+  min-width: 200px;
+}
+
+.cart-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 250px;
+}
+
+.cart-item-actions input[type="number"] {
+  width: 60px;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid var(--border-strong-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cart-item-actions input[type="number"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-shadow-color);
+  outline: none;
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--subtle-border-color);
+  font-size: 1.1em;
+}
+
+.cart-summary input[type="email"] {
+  padding: 8px 12px;
+  border: 1px solid var(--border-strong-color);
+  border-radius: 4px;
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  margin-left: 10px;
+}
+
+.checkout-button {
+  padding: 12px 20px;
+  background-color: var(--success-color);
+  color: var(--primary-text-color);
+  font-size: 1em;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-left: 15px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.checkout-button:hover {
+  background-color: var(--success-darker-color);
+  transform: translateY(-2px);
+}
+
+/* --- Estilos para la página de Nuevo Producto y Administración --- */
+
+/* Contenedor del formulario en nuevo_producto.html */
+.product-catalog section form {
+  align-items: stretch; /* Para que los botones ocupen todo el ancho */
+}
+
+/* Vista previa de la imagen */
+.image-preview {
+  margin-top: 15px;
+  max-height: 200px;
+  max-width: 100%;
+  border: 2px dashed var(--border-color);
+  border-radius: 8px;
+  padding: 5px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--subtle-bg-color);
+}
+
+/* Botones genéricos */
+.button {
+  display: inline-block;
+  padding: 12px 25px;
+  border: none;
+  color: var(--primary-text-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
+}
+
+.button:hover,
+.button:focus {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.button-success {
+  background-color: var(--success-color);
+}
+.button-success:hover {
+  background-color: var(--success-darker-color);
+}
+
+.button-danger {
+  background-color: var(--danger-color);
+}
+.button-danger:hover {
+  background-color: var(--danger-darker-color);
+}
+
+/* Contenedor de acciones en eliminar_productos.html */
+.admin-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--subtle-border-color);
+}
+
+/* Etiquetas de estado en la lista de administración */
+.status-tag {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.8em;
+  font-weight: bold;
+  border-radius: 12px;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
+.status-default {
+  background-color: var(--subtle-bg-color);
+  color: var(--text-muted-color);
+  border: 1px solid var(--border-color);
+}
+
+.status-added {
+  background-color: var(--success-shadow-color);
+  color: var(--success-darker-color);
+  border: 1px solid var(--success-color);
+}
+
+.dark-mode .status-added {
+  color: var(--success-color);
 }

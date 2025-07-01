@@ -4,83 +4,48 @@
   <meta charset="UTF-8" />
   <title>Administrar Productos</title>
   <link rel="stylesheet" href="css/styles.css" />
-  <style>
-    body {
-      background-color: #656565;
-    }
-    .admin-container {
-      max-width: 1000px;
-      margin: 30px auto;
-      padding: 20px;
-      background: #2953d3;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .product-item {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #ddd;
-      padding: 10px 0;
-      flex-wrap: wrap;
-    }
-    .product-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      margin-right: 15px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    .product-details {
-      flex: 1;
-      min-width: 200px;
-    }
-    .delete-button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #dc3545;
-      color: white;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .delete-button:hover {
-      background: #c82333;
-    }
-    .reset-storage-button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 20px;
-      margin-left: 10px;
-    }
-    .reset-storage-button:hover {
-      color: #dc3545;
-    }
-  </style>
 </head>
 <body>
-  <!-- Barra superior -->
+  <!-- Barra superior (reutilizada de index.html) -->
   <div class="top-bar">
     <div class="top-links">
       <a href="index.html"><span class="icon">🏠</span>Inicio</a>
-      <a href="carrito.html"><span class="icon">🛒</span>Carrito</a>
-      <a href="nuevo_producto.html"><span class="icon">➕</span>Registrar Producto</a>
+      <a href="faq.html"><span class="icon">❓</span>Preguntas Frecuentes</a>
+      <a href="contacto.html"><span class="icon">📧</span>Contáctenos</a>
+      <a href="conocenos.html"><span class="icon">ℹ️</span>Conócenos</a>
     </div>
     <div class="top-bar-right">
       <button id="theme-toggle" class="theme-toggle-button" aria-label="Cambiar tema">🌙</button>
-      <button id="reset-storage" class="reset-storage-button" aria-label="Resetear almacenamiento local">🗑️</button>
+      <div id="fecha-actual"></div>
     </div>
   </div>
 
-  <main class="admin-container">
+  <!-- Banner con logo (reutilizado de index.html) -->
+  <div class="banner">
+    <img src="images/logo.png" alt="Logo de la Empresa">
+  </div>
+  <!-- Navegación secundaria (reutilizada de index.html) -->
+  <div class="nav-area">
+    <div class="nav-links">
+      <a href="carrito.html">Nuestros productos</a>
+      <a href="nuevo_producto.html">Registrar Producto</a>
+      <a href="login.html">Iniciar Sesión / Registro</a>
+    </div>
+    <div class="search-box">
+      <input type="text" placeholder="Buscar productos...">
+    </div>
+  </div>
+
+  <main class="product-catalog">
     <h2>🗑️ Administrar Productos Registrados</h2>
     <div id="product-list"></div>
-    <button class="delete-button">Eliminar Seleccionados</button>
+    <div class="admin-actions">
+      <button id="delete-selected" class="button button-danger">Eliminar Seleccionados</button>
+      <button id="reset-storage" class="button button-danger">Resetear Almacenamiento</button>
+    </div>
   </main>
 
+  <script src="js/scripts.js"></script>
   <script src="js/theme.js"></script>
   <script>
     const defaultProducts = [
@@ -97,7 +62,7 @@
     ];
 
     const productList = document.getElementById("product-list");
-    const deleteButton = document.querySelector(".delete-button");
+    const deleteButton = document.getElementById("delete-selected");
 
     let addedProducts = JSON.parse(localStorage.getItem("productos") || "[]");
     let deletedDefaultIds = JSON.parse(localStorage.getItem("productos_eliminados") || "[]");
@@ -114,17 +79,18 @@
 
       combinedProducts.forEach(product => {
         const div = document.createElement("div");
-        div.className = "product-item";
+        div.className = "cart-item"; // Reutilizamos el estilo del carrito
         const checkboxHTML = `<input type="checkbox" class="product-checkbox" data-id="${product.id}">`;
+        const isDefault = defaultProducts.some(p => p.id === product.id);
+        const statusClass = isDefault ? "status-default" : "status-added";
+        const statusText = isDefault ? "Predeterminado" : "Agregado";
+
         div.innerHTML = `
           ${checkboxHTML}
-          ${product.imagen ? `<img src="${product.imagen}" alt="${product.nombre}">` : ""}
-          <div class="product-details">
+          <img src="${product.imagen || 'images/default.png'}" alt="${product.nombre}">
+          <div class="cart-item-details">
             <strong>${product.nombre}</strong><br>
-            Precio: $${product.precio.toFixed(2)}<br>
-            <em style="color:${defaultProducts.some(p => p.id === product.id) ? '#888' : 'green'};">
-              ${defaultProducts.some(p => p.id === product.id) ? "Predeterminado" : "Agregado"}
-            </em>
+            Precio: $${product.precio.toFixed(2)} <span class="status-tag ${statusClass}">${statusText}</span>
           </div>
         `;
         productList.appendChild(div);
